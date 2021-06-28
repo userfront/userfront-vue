@@ -1,0 +1,44 @@
+{
+  "name": "@userfront/vue",
+  "version": "0.1.0",
+  "description": "Userfront Vue binding",
+  "source": "src/index.js",
+  "main": "build/userfront-vue.js",
+  "module": "build/userfront-vue.module.js",
+  "unpkg": "build/userfront-vue.umd.js",
+  "scripts": {
+    "test": "jest --watch",
+    "build": "microbundle",
+    "pub": "npm version patch --force && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/userfront/userfront-vue.git"
+  },
+  "keywords": [
+    "userfront"
+  ],
+  "author": "Userfront",
+  "bugs": {
+    "url": "https://github.com/userfront/userfront-vue/issues"
+  },
+  "homepage": "https://github.com/userfront/userfront-vue#readme",
+  "dependencies": {
+    "@anymod/core": "^0.1.48",
+    "@userfront/core": "^0.2.12"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.6.1",
+    "babel-loader": "^8.1.0",
+    "es6-promise": "^4.2.8",
+    "jest": "^26.6.1",
+    "microbundle": "^0.12.4",
+    "nock": "^13.0.4",
+    "vue": "^2.6.14"
+  }
+}
