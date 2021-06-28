@@ -30,3 +30,57 @@ Singleton.Opts.api = true;
  *  6b. If Script1 has loaded, continue
  *  7. runAnyModSetup() is called
  */
+
+// Callback to fire whenever Userfront.init is called
+addInitCallback(({ tenantId }) => {
+  Singleton.External.project = tenantId;
+  addScript1ToDocument(
+    "https://mod.userfront.com/v3/page/",
+    tenantId,
+    runAnyModSetup
+  );
+});
+
+registerUrlChangedEventListener();
+
+window.addEventListener("urlchanged", render);
+
+async function runAnyModSetup() {
+  if (Singleton.isScript1Loading) return;
+  try {
+    const page = await createOrReturnPage();
+    console.log("HERE", page);
+    const updatedPage = await checkPageAndUpdate(page);
+    await processPage(updatedPage);
+    executeCallbacks();
+    logErrorsAndTips();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function mountTools() {
+  try {
+    runAnyModSetup();
+  } catch (err) {
+    let message = err && err.message ? err.message : "Problem loading page";
+    console.warn(message, err);
+  }
+}
+
+const Userfront = {
+  build({ toolName, toolId }) {
+    return Vue.component(toolName, {
+      template: `<div><div id="userfront-${toolId}"></div></div>`,
+      async mounted() {
+        await mountTools();
+      },
+    });
+  },
+};
+
+for (const attr in Core) {
+  if (!Userfront[attr]) Userfront[attr] = Core[attr];
+}
+
+export default Userfront;
