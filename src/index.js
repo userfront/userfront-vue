@@ -67,8 +67,7 @@ async function mountTools() {
   }
 }
 
-function build() {
-  const name = `userfront-${Math.random().toString(36).substring(6)}`;
+function build(name) {
   return Vue.component(name, {
     props: {
       id: {
@@ -85,10 +84,10 @@ function build() {
 
 const Userfront = {
   build,
-  SignupForm: build,
-  LoginForm: build,
-  PasswordResetForm: build,
-  LogoutButton: build,
+  SignupForm: build("signup-form"),
+  LoginForm: build("login-form"),
+  PasswordResetForm: build("password-reset-form"),
+  LogoutButton: build("logout-button"),
 };
 
 for (const attr in Core) {
