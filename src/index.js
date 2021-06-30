@@ -72,7 +72,7 @@ export function build(name) {
     props: {
       toolId: {
         type: String,
-        required: true,
+        // required: true,
       },
     },
     template: `<div><div id="userfront-${toolId}"></div></div>`,
