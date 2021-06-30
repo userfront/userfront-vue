@@ -49,7 +49,6 @@ async function runAnyModSetup() {
   if (Singleton.isScript1Loading) return;
   try {
     const page = await createOrReturnPage();
-    console.log("HERE", page);
     const updatedPage = await checkPageAndUpdate(page);
     await processPage(updatedPage);
     executeCallbacks();
@@ -68,15 +67,28 @@ async function mountTools() {
   }
 }
 
-const Userfront = {
-  build({ toolName, toolId }) {
-    return Vue.component(toolName, {
-      template: `<div><div id="userfront-${toolId}"></div></div>`,
-      async mounted() {
-        await mountTools();
+function build() {
+  const name = `userfront-${Math.random().toString(36).substring(6)}`;
+  return Vue.component(name, {
+    props: {
+      id: {
+        type: String,
+        required: true,
       },
-    });
-  },
+    },
+    template: `<div><div id="userfront-${this.id}"></div></div>`,
+    async mounted() {
+      await mountTools();
+    },
+  });
+}
+
+const Userfront = {
+  build,
+  SignupForm: build,
+  LoginForm: build,
+  PasswordResetForm: build,
+  LogoutButton: build,
 };
 
 for (const attr in Core) {
