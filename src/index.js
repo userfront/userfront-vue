@@ -75,7 +75,7 @@ export function build(name) {
         // required: true,
       },
     },
-    template: `<div><div id="userfront-{{toolId}}"></div></div>`,
+    template: '<div><div :id="`userfront-${toolId}`"></div></div>',
     async mounted() {
       await mountTools();
     },
