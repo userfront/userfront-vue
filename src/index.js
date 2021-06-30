@@ -87,13 +87,13 @@ export const LoginForm = build("login-form");
 export const PasswordResetForm = build("password-reset-form");
 export const LogoutButton = build("logout-button");
 
-// const Userfront = {
-//   build,
-//   SignupForm,
-//   LoginForm,
-//   PasswordResetForm,
-//   LogoutButton,
-// };
+export const Userfront = {
+  build,
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
+};
 
 for (const attr in Core) {
   if (!Userfront[attr]) Userfront[attr] = Core[attr];
