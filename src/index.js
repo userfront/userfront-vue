@@ -67,7 +67,7 @@ async function mountTools() {
   }
 }
 
-function build(name) {
+export function build(name) {
   return Vue.component(name, {
     props: {
       id: {
@@ -82,12 +82,17 @@ function build(name) {
   });
 }
 
+export const SignupForm = build("signup-form");
+export const LoginForm = build("login-form");
+export const PasswordResetForm = build("password-reset-form");
+export const LogoutButton = build("logout-button");
+
 const Userfront = {
   build,
-  SignupForm: build("signup-form"),
-  LoginForm: build("login-form"),
-  PasswordResetForm: build("password-reset-form"),
-  LogoutButton: build("logout-button"),
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
 };
 
 for (const attr in Core) {
