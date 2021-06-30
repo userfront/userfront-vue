@@ -69,13 +69,13 @@ async function mountTools() {
 
 export function build(name) {
   return Vue.component(name, {
+    template: '<div><div :id="`userfront-${toolId}`"></div></div>',
     props: {
       toolId: {
         type: String,
         // required: true,
       },
     },
-    template: '<div><div :id="`userfront-${toolId}`"></div></div>',
     async mounted() {
       await mountTools();
     },
