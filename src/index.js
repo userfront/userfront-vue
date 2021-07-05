@@ -47,15 +47,11 @@ window.addEventListener("urlchanged", render);
 
 async function runAnyModSetup() {
   if (Singleton.isScript1Loading) return;
-  try {
-    const page = await createOrReturnPage();
-    const updatedPage = await checkPageAndUpdate(page);
-    await processPage(updatedPage);
-    executeCallbacks();
-    logErrorsAndTips();
-  } catch (error) {
-    console.log(error);
-  }
+  const page = await createOrReturnPage();
+  const updatedPage = await checkPageAndUpdate(page);
+  await processPage(updatedPage);
+  executeCallbacks();
+  logErrorsAndTips();
 }
 
 async function mountTools() {
@@ -99,4 +95,4 @@ for (const attr in Core) {
   if (!Userfront[attr]) Userfront[attr] = Core[attr];
 }
 
-// export default Userfront;
+export default Userfront;
