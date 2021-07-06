@@ -63,14 +63,30 @@ async function mountTools() {
   }
 }
 
+/**
+ * Returns a compiled Vue component.
+ * Uses "render" instead of "template" to avoid runtime compiler:
+ * https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+ *
+ * @param {Object} name - Vue component
+ * @returns
+ */
 export function build(name) {
   return Vue.component(name, {
-    template: '<div><div :id="`userfront-${toolId}`"></div></div>',
     props: {
       toolId: {
         type: String,
         // required: true,
       },
+    },
+    render(createElement) {
+      return createElement("div", [
+        createElement("div", {
+          attrs: {
+            id: `userfront-${this.toolId}`,
+          },
+        }),
+      ]);
     },
     async mounted() {
       await mountTools();
