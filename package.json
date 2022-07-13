@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/userfront/userfront-vue#readme",
   "dependencies": {
-    "@anymod/core": "^0.1.48",
-    "@userfront/core": "^0.2.33"
+    "@anymod/core": "^0.1.51",
+    "@userfront/core": "^0.4.4"
   },
   "peerDependencies": {
     "vue": "^2.6.14"
