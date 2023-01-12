@@ -11,6 +11,14 @@ const Test = {
 
 alias.setAlias("Userfront");
 
+/**
+ * Mount a Vue component with vue-test-utils and return its wrapper,
+ * in a way that works in both VTU versions (VTU 1 = Vue 2; VTU 2 = Vue 3).
+ * 
+ * @param {object} Component 
+ * @param {object} options 
+ * @returns {object} vue-test-utils wrapper
+ */
 Test.fns.mount = (Component, options) => {
   const opts = {...options}
   opts.props = options.props || options.propsData
@@ -18,6 +26,12 @@ Test.fns.mount = (Component, options) => {
   return mount(Component, options)
 }
 
+/**
+ * Mount a Vue component along with the Vue 3 Userfront plugin
+ * @param {object} Component 
+ * @param {object} options 
+ * @returns {object} vue-test-utils wrapper
+ */
 const mountWithVue3Plugin = (Component, options) => {
   options.props = options.props || options.propsData
   delete options.propsData
@@ -36,6 +50,13 @@ const mountWithVue3Plugin = (Component, options) => {
   return mount(Component, options);
 }
 
+/**
+ * Mount a Vue component along with the Vue 2 Userfront plugin
+ * 
+ * @param {object} Component 
+ * @param {object} options 
+ * @returns {object} vue-test-utils wrapper
+ */
 const mountWithVue2Plugin = (Component, options) => {
   options.propsData = options.propsData || options.props
   delete options.props
@@ -45,6 +66,14 @@ const mountWithVue2Plugin = (Component, options) => {
   return mount(Component, options);
 }
 
+/**
+ * Mount a Vue component along with the Userfront Vue plugin,
+ * in the correct way for the Vue version under test (Vue 2 or Vue 3).
+ * 
+ * @param {object} Component 
+ * @param {object} options 
+ * @returns {object} vue-test-utils wrapper
+ */
 Test.fns.mountWithPlugin = (Component, options = {}) => {
   const opts = {...options}
 
@@ -59,6 +88,14 @@ Test.fns.mountWithPlugin = (Component, options = {}) => {
   }
 }
 
+/**
+ * Mount a Vue component in the correct way for the
+ * Vue version under test (Vue 2 or Vue 3).
+ * 
+ * @param {object} Component 
+ * @param {object} options 
+ * @returns {object} vue-test-utils wrapper
+ */
 Test.fns.mount = (Component, options = {}) => {
   switch(process.env.VUE_VERSION) {
     case "3": {
