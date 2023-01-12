@@ -4,6 +4,8 @@ The Userfront Vue binding allows you to quickly add pre-built signup, login, and
 
 This binding includes all methods from the Userfront [core JS library](https://userfront.com/docs/js.html).
 
+The Userfront Vue library supports both Vue 2 and Vue 3.
+
 ## Setup
 
 [Working example](https://codesandbox.io/s/userfront-vue-example-5xf85?file=/src/App.vue)
@@ -37,6 +39,63 @@ npm install @userfront/vue --save
   };
 </script>
 ```
+
+<details><summary>Usage as a Vue plugin:</summary>
+
+Userfront may also be installed as a Vue plugin.
+
+This initializes Userfront when your app launches, and makes all of the tools available anywhere any your app.
+
+**Vue 3**:
+
+```js
+// main.js - Vue 3
+import { createApp } from "vue";
+import App from "./App.vue";
+import Userfront from "@userfront/vue";
+
+const app = createApp(App);
+// Install Userfront as a plugin
+app.use(Userfront, { tenantId: "demo1234" });
+
+app.mount("#app");
+```
+
+**Vue 2**:
+
+```js
+// main.js - Vue 2
+import Vue from "vue";
+import App from "./App.vue";
+import Userfront from "@userfront/vue";
+
+// Install Userfront as a plugin
+Vue.use(Userfront, { tenantId: "demo1234" });
+
+new Vue({ render: (h) => h(App) })
+  .$mount("#app");
+```
+
+When the plugin is initialized, it automatically calls `Userfront.init()` with your tenant ID.
+
+This registers the forms globally on your Vue instance, so you can use them in any component:
+
+```html
+<!-- Vue 2 and Vue 3 -->
+<template>
+  <div>
+    <SignupForm tool-id="nkmbbm" />
+  </div>
+</template>
+
+<script>
+  // No script needed!
+</script>
+```
+
+When using as a plugin, Core JS methods are used as in the following section.
+
+</details>
 
 This example uses the following:
 

@@ -153,34 +153,31 @@ function register(app, name) {
 }
 
 /**
- * If Vue 2 is in use, build component with the Vue singleton, and in development give a soft deprecation notice in console.
+ * If Vue 2 is in use, build component with the Vue singleton.
  * If Vue 3 is in use, give a useful console error and throw.
  * If Vue is not found, throw.
  * @param {string} name - name of component to register with the Vue singleton
  * @returns 
  */
 function legacyBuild(name) {
-  // Vue 3: cannot use this method, must use plugin
+  // Vue 3: cannot use this method
   // Log a helpful warning, and throw an error so client gets a stack trace
   if (isVue3) {
-    console.warn(
-`@userfront/vue: when using with Vue 3, you %c must %c install Userfront as a plugin to your Vue application instance: %c
-    import { createApp } from 'vue'
-    import Userfront from '@userfront/vue'
-    
-    const app = createApp({ ... })
-    
-    app.use(Userfront, {
-      tenantId: 'abcd1234' // your application's tenant ID
-    })`,
-      // console styles
-      "font-weight: bold",
-      "font-weight: normal",
-      "font-family: monospace; background: #f0f8ff; color: #808080")
-    throw new Error("@userfront/vue: Userfront must be installed as a plugin to your Vue application instance when using Vue 3 or higher.")
+    console.warn(`@userfront/vue: when using with Vue 3 or higher, do not call Userfront.build(...) to get your tools. Import the tools from @userfront/vue directly:
+    <template>
+      <signup-form tool-id="my-tool-id" />
+    </template>
+    <script>
+      import { SignupForm } from "@userfront/vue"
+      export default {
+        components: {
+          SignupForm
+        }
+      }
+    </script>`)
+    throw new Error("@userfront/vue: do not use Userfront.build(...) with Vue 3 or higher.")
   }
   // Vue 2: can use this method
-  // In the future: recommend using plugin anyways, as a console.info, but not in production
   if (isVue2 || Vue2?.component) {
     return register(Vue2, name);
   }
@@ -222,7 +219,7 @@ export const build = legacyBuild;
  * @param {object} options - options to pass to Userfront
  * @param {string} options.tenantId - your Userfront tenant ID
  */
-function install(app, options) {
+function install(app, options = {}) {
   if (options.tenantId) {
     Core.init(options.tenantId)
   }
