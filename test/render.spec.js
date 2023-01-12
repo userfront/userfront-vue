@@ -16,7 +16,7 @@ describe("Render a signup form", () => {
   });
 
   it("should make a proper request to the endpoint", async () => {
-    const wrapper = await mount(SignupForm, {
+    const wrapper = await Test.fns.mount(SignupForm, {
       propsData: {
         toolId: Test.factories.mods.basic.eid,
       },

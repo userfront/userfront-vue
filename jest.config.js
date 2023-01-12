@@ -1,6 +1,18 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
+// Choose Vue 2 or 3 as appropriate.
+const getVueVersionPostfix = () => {
+  const envVersion = process.env.VUE_VERSION;
+  switch (envVersion) {
+    case "3":
+      return "-3";
+    case "2":
+    default:
+      return "";
+  }
+}
+
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -12,7 +24,8 @@ module.exports = {
   // browser: false,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/var/folders/p_/78j34v8d52b0t1sdr7cjv_l00000gn/T/jest_dx",
+  // Use a different cache for each Vue-versioned test suite.
+  cacheDirectory: `.cache/jest-cache-vue${getVueVersionPostfix()}`,
 
   // Automatically clear mock calls and instances between every test
   // clearMocks: false,
@@ -71,7 +84,11 @@ module.exports = {
   ],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  // Use the correct version of Vue per the test environment
+  moduleNameMapper: {
+    "^vue((\\/.*)?)$": `vue${getVueVersionPostfix()}$1`,
+    "^@vue\/test-utils((\\/.*)?)$": `@vue\/test-utils${getVueVersionPostfix()}$1`,
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -114,6 +131,8 @@ module.exports = {
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
   // setupFiles: [],
+
+  setupFilesAfterEnv: ["<rootDir>/jestSetup.js"],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,

@@ -7,7 +7,10 @@
   "module": "build/userfront-vue.module.js",
   "unpkg": "build/userfront-vue.umd.js",
   "scripts": {
-    "test": "jest --watch",
+    "test:vue-2": "VUE_VERSION=2 jest --silent=false",
+    "test:vue-3": "VUE_VERSION=3 jest --silent=false",
+    "test": "concurrently -g \"npm run test:vue-2\" \"npm run test:vue-3\"",
+    "test:watch": "jest --watch",
     "build": "microbundle",
     "pub": "npm version patch --force && npm publish"
   },
@@ -25,23 +28,36 @@
   "homepage": "https://github.com/userfront/userfront-vue#readme",
   "dependencies": {
     "@anymod/core": "^0.1.51",
-    "@userfront/core": "^0.4.4"
+    "@userfront/core": "^0.4.4",
+    "compare-versions": "^6.0.0-rc.1"
   },
   "peerDependencies": {
-    "vue": "^2.6.14"
+    "vue": "^2.6.14 || ^3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@vue/server-test-utils": "^1.2.1",
     "@vue/test-utils": "^1.2.1",
+    "@vue/test-utils-3": "npm:@vue/test-utils@2.2.7",
     "babel-jest": "^26.6.1",
     "babel-loader": "^8.1.0",
+    "concurrently": "^7.6.0",
     "es6-promise": "^4.2.8",
     "flush-promises": "^1.0.2",
     "jest": "^26.6.1",
     "microbundle": "^0.12.4",
     "nock": "^13.0.4",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vue-3": "npm:vue@^3.2.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "overrides": {
+    "@vue/test-utils-3": {
+      "vue": "^3.2.0"
+    },
+    "@vue/test-utils": {
+      "vue": "^2.6.14"
+    }
   }
 }
