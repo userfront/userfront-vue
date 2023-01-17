@@ -27,7 +27,7 @@ describe("Assert that page was properly set up", () => {
 
     // Initialize the form
     Userfront.init(tenantId);
-    mount(PasswordResetForm);
+    Test.fns.mount(PasswordResetForm);
 
     // Assert correct setup
     expect(Singleton.External.name).toEqual("Userfront");
