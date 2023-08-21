@@ -1,6 +1,6 @@
 {
   "name": "@userfront/vue",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "Userfront Vue binding",
   "source": "src/index.js",
   "main": "build/userfront-vue.js",
