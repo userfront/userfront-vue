@@ -1,4 +1,8 @@
-# Userfront Vue
+# ⚠️ Deprecated: new projects should use the [Userfront Toolkit](https://github.com/userfront/toolkit) ([npm: @userfront/toolkit](https://www.npmjs.com/package/@userfront/toolkit))
+
+This library is no longer receiving updates. Please use `@userfront/toolkit` instead.
+
+## Userfront Vue
 
 The Userfront Vue binding allows you to quickly add pre-built signup, login, and password reset forms to your Vue.js application.
 
